@@ -80,7 +80,7 @@ logreg.fit(X_train, y_train)
 y_pred = logreg.predict(X_test)
 
 # Evaluate
-accuracy = accuracy_score(y_test, y_pred)
+log_accuracy = accuracy_score(y_test, y_pred)
 conf_matrix = confusion_matrix(y_test, y_pred)
 report = classification_report(y_test, y_pred, output_dict=False)
 
@@ -93,11 +93,12 @@ plt.figure(figsize=(6, 4))
 sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=['Predicted Loss', 'Predicted Win'], yticklabels=['Actual Loss', 'Actual Win'])
 plt.xlabel('Predicted')
 plt.ylabel('Actual')
-plt.title('Confusion Matrix')
+plt.title('Log Confusion Matrix')
 plt.tight_layout()
 plt.show()
 
 plt.savefig('Log_Confusion_Matrix.png', dpi = 300)
+
 
 #%%
 # K Nearest neighbors
@@ -144,6 +145,8 @@ print("Classification Report:\n", classification_report(y_test, y_pred_knn))
 #%%
 # RANDOM FOREST
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import plot_tree
+
 rf = RandomForestClassifier(n_estimators=100, random_state=42)
 
 # Train on your existing training data
@@ -155,6 +158,64 @@ y_pred = rf.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print("Classification Report:\n", classification_report(y_test, y_pred))
 
+importances = rf.feature_importances_
+features = X_train.columns
+
+# Step 2: Create a dataframe for plotting
+importance_df = pd.DataFrame({
+    'Feature': features,
+    'Importance': importances
+}).sort_values(by='Importance', ascending=False)
+
+# Step 3: Plot
+plt.figure(figsize=(10, 6))
+sns.barplot(data=importance_df, x='Importance', y='Feature', palette='RdGy')
+plt.title('Feature Importance - Random Forest Model')
+plt.xlabel('Importance Score')
+plt.ylabel('Feature')
+plt.tight_layout()
+
+# Save and show the plot
+plt.savefig('random_forest_feature_importance.png', dpi=300)
+plt.show()
+
+estimator = rf.estimators_[0]  # You can change the index to see other trees
+
+# Plot the tree
+plt.figure(figsize=(20, 10))  # Wider figure for readability
+plot_tree(estimator, 
+          feature_names=X_train.columns, 
+          class_names=['Loss', 'Win'], 
+          filled=True, 
+          max_depth=3,  # Limit depth to avoid overly complex plots
+          fontsize=10)
+
+plt.title("Random Forest - Tree 0 (Max Depth 3)")
+plt.tight_layout()
+plt.savefig('rf_tree_example.png', dpi=300)
+plt.show()
+
+#%%
+log_accuracy = accuracy_score(y_test, logreg.predict(X_test))
+knn_accuracy = accuracy_score(y_test, knn.predict(X_test))
+rf_accuracy = accuracy_score(y_test, rf.predict(X_test))
+
+model_names = ['Logistic Regression', 'K-Nearest Neighbors', 'Random Forest']
+accuracies = [log_accuracy, knn_accuracy, rf_accuracy]
+
+    
+plt.figure(figsize=(8, 5))
+sns.barplot(x=accuracies, y=model_names, palette='Set2')
+plt.xlabel('Accuracy')
+plt.title('Model Accuracy Comparison')
+plt.xlim(0, 1)  # Since accuracy ranges from 0 to 1
+
+for i, v in enumerate(accuracies):
+    plt.text(v + 0.01, i, f"{v:.2f}", va='center')
+    
+plt.tight_layout()
+plt.savefig('Model Accuracy Comparison.png', dpi=300)
+plt.show()
 
 
 
