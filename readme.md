@@ -24,9 +24,9 @@ The goal is to predict match outcome using match features like:
 This analysis uses two scripts 'load_and_clean.py' and 'models.py'
 
 ### 'load_and_clean.py'
-This script begings by defining the function 'process_year()'. This function 
+This script begins by defining the function 'process_year()'. This function 
 creates columns that calculates the difference in the competing players' match 
-statistics (i.e. rank_diff, ace_diff, etc). Addtionally, it creates a dummy 
+statistics (i.e. rank_diff, ace_diff, etc). Additionally, it creates a dummy 
 variable for the surface type, drops the features we aren't interested in, 
 and creates the 'target' column which is what the models will be trained to 
 find. Lastly, this function creates a flipped model which doubles our amount 
@@ -43,20 +43,21 @@ k-nearest-neighbors, random forest, naive-bayes, and support vector machine.
 
 #### Logistic Regression
 
-![logreg_roc_curve](https://github.com/user-attachments/assets/ff82ca69-4619-4c18-ab85-82f3fb7058a9)
+![Logistic Regression](https://github.com/user-attachments/assets/ff82ca69-4619-4c18-ab85-82f3fb7058a9)
 
 A logistic regression model is a binary classification model that fits outputs 
-between 0 and 1 and classifies wins and losses. The model had a 92% accuracy
-in predicting match outcomes.
+between 0 and 1 and classifies wins and losses. The ROC curve shows how accurate 
+the model is, with a curve closer to the corner and an AUC closer to 1 
+showing accuracy. The model had a 92% accuracy in predicting match outcomes.
  
 #### K-Nearest-Neighors
 
-![K-Nearest-Neighors](KKN_Accuracy_vs_Number_of_Neighbors.png)
+![K-Nearest-Neighbors](https://github.com/user-attachments/assets/14c0e7ef-fb60-4a8f-891d-fc4e855155b9)
 
 K-Nearest-Neighbors uses a new data point and finds the 'k' nearest points in 
 the training set. From there, it classifies based on majority grouping. This 
 model iterates over different values of 'k' to find the most accurate model. 
-For this script, the most accurate 'k' was 15 and the accuracy was 80%.
+For this script, the most accurate 'k' was 15, and the accuracy was 80%.
 
 #### Random Forest
 
@@ -69,7 +70,7 @@ then averages the values. The model has 91% accuracy.
 
 ![Naive Bayes](naive_bayes_roc_curve.png)
 
-This model is based on Bayes Theorem. It assumes feature independence and uses 
+This model is based on Bayes' Theorem. It assumes feature independence and uses a 
 probability distribution to predict wins and losses. The accuracy for this 
 model was 77%.
 
@@ -77,18 +78,18 @@ model was 77%.
 
 ![Support Vector Machine](svm_conf_matrix.png)
 
-This models finds the most optimal plane to seperate wins and losses bases on 
-players stats. The accuracy for this model is 69%.
+This model finds the most optimal plane to separate wins and losses based on 
+players' stats. The accuracy for this model is 69%.
 
 ## Results
 
-![Model Accuracy Comparison](Model Accuracy Comparison All Models.png)
+![Model Accuracy Comparison](https://github.com/user-attachments/assets/9dac2131-0c12-4e67-a9e9-ad42266aa826)
 
 The model with the best accuracy is the logistic regression.
 
 ## Limitations
 
-I had trouble finding womens' data that I could use the same models with.
+I had trouble finding women's data that I could use the same models with.
 
 
 
