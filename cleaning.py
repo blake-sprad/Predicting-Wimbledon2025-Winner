@@ -196,6 +196,21 @@ plt.savefig('rf_tree_example.png', dpi=300)
 plt.show()
 
 #%%
+
+from sklearn.naive_bayes import GaussianNB
+
+# 1. Initialize and train the model
+nb = GaussianNB()
+nb.fit(X_train, y_train)
+
+# 2. Predict on test data
+nb_preds = nb.predict(X_test)
+
+# 3. Evaluate accuracy
+nb_accuracy = accuracy_score(y_test, nb_preds)
+print("Naive Bayes Accuracy:", nb_accuracy)
+
+#%%
 log_accuracy = accuracy_score(y_test, logreg.predict(X_test))
 knn_accuracy = accuracy_score(y_test, knn.predict(X_test))
 rf_accuracy = accuracy_score(y_test, rf.predict(X_test))
@@ -215,6 +230,32 @@ for i, v in enumerate(accuracies):
     
 plt.tight_layout()
 plt.savefig('Model Accuracy Comparison.png', dpi=300)
+plt.show()
+
+#%%
+# Plot accuracies against each otherlog_accuracy = accuracy_score(y_test, logreg.predict(X_test))
+knn_accuracy = accuracy_score(y_test, knn.predict(X_test))
+rf_accuracy = accuracy_score(y_test, rf.predict(X_test))
+nb_accuracy = accuracy_score(y_test, nb.predict(X_test))
+svm_accuracy = accuracy_score(y_test, svm.predict(X_test))
+
+# Labels and values
+model_names = ['Logistic Regression', 'K-Nearest Neighbors', 'Random Forest', 'Naive Bayes', 'Support Vector Machine']
+accuracies = [log_accuracy, knn_accuracy, rf_accuracy, nb_accuracy, svm_accuracy]
+
+# Plot
+plt.figure(figsize=(10, 6))
+sns.barplot(x=accuracies, y=model_names, palette='Set2')
+plt.xlabel('Accuracy')
+plt.title('Model Accuracy Comparison')
+plt.xlim(0, 1)
+
+# Add value labels
+for i, v in enumerate(accuracies):
+    plt.text(v + 0.01, i, f"{v:.2f}", va='center')
+
+plt.tight_layout()
+plt.savefig('model_accuracy_comparison_all_models.png', dpi=300)
 plt.show()
 
 
