@@ -88,7 +88,7 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
-plt.savefig('KKN_Accuracy_vs_Number_of_Neighbors.png', dpi = 300)
+plt.savefig('KNN_Accuracy_vs_Number_of_Neighbors.png', dpi = 300)
 
 # Run after deciding whick k to use
 knn = KNeighborsClassifier(n_neighbors=15)  # You can tweak 'k'
