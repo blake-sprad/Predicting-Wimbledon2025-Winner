@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sat May  3 14:32:26 2025
-
-@author: blakespradlin
-"""
-
 # Predicting Wimbledon 2025 Winner
 
 ## Summary
@@ -51,7 +43,7 @@ k-nearest-neighbors, random forest, naive-bayes, and support vector machine.
 
 #### Logistic Regression
 
-![Logistic Regression](logreg_roc_curve.png)
+![logreg_roc_curve](https://github.com/user-attachments/assets/ff82ca69-4619-4c18-ab85-82f3fb7058a9)
 
 A logistic regression model is a binary classification model that fits outputs 
 between 0 and 1 and classifies wins and losses. The model had a 92% accuracy
